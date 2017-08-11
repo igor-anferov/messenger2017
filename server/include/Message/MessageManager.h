@@ -24,7 +24,7 @@ private:
     MessagePair deserialize(const std::string &data);
 
 
-    std::string createResponse(const MessagePair &pair);
+    std::string createResponse(const MessagePair &pair, bool &isDialogExists);
 };
 }
 }
