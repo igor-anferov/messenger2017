@@ -11,7 +11,6 @@ Server server;
 
 void my_handler (int param)
 {
-    server.~Server();
     exit(1);
 }
 
@@ -35,6 +34,5 @@ int main(int argc, char* argv[]) {
 
     server.start(port);
 
-    std::cout << "END" << std::endl;
     return 0;
 }
