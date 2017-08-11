@@ -1,12 +1,17 @@
 
-#include "Authorized/ChatsInfoManager.h"
+#include "Message/ChatsInfoManager.h"
 
 using namespace m2::server;
 
 
 ChatsinfoManager::ChatsinfoManager(ManagerController* controller)
         : Manager(controller)
-{}
+        , User()
+{
+    if (!controller)
+        return;
+    User = controller->getUuid();
+}
 
 HttpResponse::Code
 ChatsinfoManager::doAction(const std::string& data, std::string& response)
@@ -17,7 +22,7 @@ ChatsinfoManager::doAction(const std::string& data, std::string& response)
         return HttpResponse::Code::FORBIDEN;
     }
 
-    // if 
+    // if
     auto UserDialogs = db->GetUserDialog(User);
     if (!UserDialogs) {
         response = "";

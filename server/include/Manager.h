@@ -55,8 +55,10 @@ namespace server
         static const ResponseType m_response_type = ResponseType::INVALID;
         static std::string createError(const std::string message);
     protected:
+        ManagerController* controller;
         Database *db;
     };
+
 
 }
 }

@@ -9,7 +9,7 @@ std::string Manager::createError(const std::string message)
     boost::property_tree::write_json(stream, tree);
     return stream.str();
 }
-Manager::Manager(ManagerController* controller): db(controller->getDB())
+Manager::Manager(ManagerController* _controller): db(_controller->getDB()), controller(_controller)
 {
 
 }

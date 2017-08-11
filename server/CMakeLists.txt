@@ -58,7 +58,7 @@ endmacro()
 # -------------------------   sources   -------------------------
 
 set(HEADERS
-    stdafx.h include/Data/stdafx.cpp src/Data/Message/MessagePack.cpp)
+    stdafx.h)
 
 file(GLOB_RECURSE HEADERS include/*.h
                           include/*.hpp)

@@ -1,6 +1,7 @@
 #ifndef M2_SERVER_LOGINSENDKEY_H
 #define M2_SERVER_LOGINSENDKEY_H
 #include "Manager.h"
+
 namespace m2
 {
 namespace server
@@ -19,6 +20,7 @@ namespace server
 
         ManagerController* controller;
     };
+
 
 }
 }
