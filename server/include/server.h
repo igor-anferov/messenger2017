@@ -12,6 +12,7 @@ public:
     Server(const Server &) = delete;
     Server &operator=(const Server &) = delete;
     Server();
+    ~Server() {delete db;}
 
     void start(uint16_t port);
 
