@@ -85,29 +85,28 @@ namespace dialog {
 
         //void Serialize    (std::ostream& os, std::string since);
 
-        /**
-         * @param text - text of the message
-         * @return pointer on message
-         */
+        /**@param text - text of the message
+         * @return pointer on message */
         uuids::uuid
         AddMessage(const std::string& text);
 
-        /**
-         * Delete a message both from a cash and a disk
-         * @param time - time of the message (as key)
-         */
+        /**Delete a message both from a cash and a disk
+         * @param time - time of the message (as key) */
         void DeleteMessage(const uuids::uuid& Id);
 
-        /**
-         * @param time - time of the message (as key)
-         * @return pointer on the message or nullptr
-         */
+        /**@param time - time of the message (as key)
+         * @return pointer on the message or nullptr */
         std::shared_ptr<AMessage>
         Get(const uuids::uuid& Id)       override;
 
         const
         std::shared_ptr<AMessage>
         Get(const uuids::uuid& Id) const override;
+
+        /**
+         * @return maximal registred Message Uid */
+        uuids::uuid GetLastMessageUid() const;
+
 
     public: /***************| operators |***************/
 

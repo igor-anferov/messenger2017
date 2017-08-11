@@ -6,19 +6,19 @@ namespace m2
 namespace server
 {
 
-class LoginSendKeyManager: public Manager
-{
-public:
-    LoginSendKeyManager(ManagerController* controller);
-    virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
-protected:
-    uuids::uuid deserialize(const std::string &data);
+    class LoginSendKeyManager: public Manager
+    {
+    public:
+        LoginSendKeyManager(ManagerController* controller);
+        virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
+    protected:
+        uuids::uuid deserialize(const std::string &data);
 
-private:
-    std::string createResponse(const uuids::uuid &uuid);
+    private:
+        std::string createResponse(const uuids::uuid &uuid);
 
-    ManagerController* controller;
-};
+        ManagerController* controller;
+    };
 
 }
 }

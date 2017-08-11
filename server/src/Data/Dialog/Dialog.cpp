@@ -49,4 +49,7 @@ ADialog::Get(const uuids::uuid& Id) const {
     return cash(tmp);
 }
 
+uuids::uuid ADialog::GetLastMessageUid() const
+{ return index.Flag(); }
+
 /**********************************************************/
