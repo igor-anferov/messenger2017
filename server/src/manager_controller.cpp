@@ -3,6 +3,7 @@
 #include "Registration/RegisterSendKeyManager.h"
 #include "Auth/LoginManager.h"
 #include "Auth/LoginSendKeyManager.h"
+#include "Message/GetInfoManager.h"
 
 namespace m2 {
 namespace server {
@@ -17,6 +18,7 @@ namespace server {
             {"/user/register", new RegisterManager(this)},
             {"/user/auth/sendUuid", new LoginSendKeyManager(this)},
             {"/user/auth", new LoginManager(this)},
+            {"/user/info", new GetInfoManager(this)},
         };
     }
 
@@ -30,7 +32,7 @@ namespace server {
         HttpResponse::Code code = HttpResponse::Code::OK;
 
         if (managerProcessor.count(uri) > 0) {
-            managerProcessor.at(uri)->doAction(data, response);
+            code = managerProcessor.at(uri)->doAction(data, response);
         }
         else {
             code = HttpResponse::Code::NOT_FOUND;
