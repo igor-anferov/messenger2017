@@ -12,9 +12,9 @@ import uuid
 
 
 class ClientTest(unittest.TestCase):
-    SERVER_ADDR = "192.168.43.230"
+    SERVER_ADDR = "localhost"
     # 43.230
-    SERVER_PORT = 8283
+    SERVER_PORT = 8282
 
     """
     INSERT NEW UUID HERE FROM self.testRegistration()
