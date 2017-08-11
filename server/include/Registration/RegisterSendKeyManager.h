@@ -16,9 +16,6 @@ public:
     RegisterSendKeyManager(ManagerController* controller);
     virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
 
-public:
-    static const ResponseType m_response_type = ResponseType::SendKey;
-
 protected:
     std::string deserialize(const std::string &data);
 

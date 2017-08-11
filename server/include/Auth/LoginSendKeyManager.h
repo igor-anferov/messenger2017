@@ -16,7 +16,6 @@ protected:
 private:
     std::string createResponse(const uuids::uuid &uuid);
 
-    ManagerController* controller;
 };
 }
 }

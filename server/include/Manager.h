@@ -50,12 +50,14 @@ public:
         response_result status = response_result::ok;
     };
 public:
-    Manager(ManagerController* controller);
+    Manager(ManagerController* _controller);
     virtual HttpResponse::Code doAction(const std::string &data, std::string &response) = 0;
     static const ResponseType m_response_type = ResponseType::INVALID;
     static std::string createError(const std::string message);
 protected:
     Database *db;
+    ManagerController* controller;
+
 };
 
 }
