@@ -15,7 +15,6 @@ namespace server {
     public:
         Session(const Session &) = delete;
 
-
         explicit Session(boost::asio::io_service& service, Database *database);
 
         void start();

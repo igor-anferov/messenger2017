@@ -1,6 +1,5 @@
 /bin/
 /build/
-/Test/
 .idea/
 cmake-build-debug/
 *.user
