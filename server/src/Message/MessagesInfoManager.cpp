@@ -1,15 +1,15 @@
 #include <server/include/manager_controller.h>
-#include <server/include/Message/MessageInfoManager.h>
+#include <server/include/Message/MessagesInfoManager.h>
 #include <boost/uuid/string_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
 using namespace m2::server;
 
-MessageInfoManager::MessageInfoManager(ManagerController *controller)
+MessagesInfoManager::MessagesInfoManager(ManagerController *controller)
     : Manager(controller)
 {
 
 }
-HttpResponse::Code m2::server::MessageInfoManager::doAction(const std::string &data, std::string &response)
+HttpResponse::Code m2::server::MessagesInfoManager::doAction(const std::string &data, std::string &response)
 {
     MessagePair preparedData;
     try {
@@ -29,7 +29,7 @@ HttpResponse::Code m2::server::MessageInfoManager::doAction(const std::string &d
     }
     return HttpResponse::Code::OK;
 }
-MessageInfoManager::MessagePair MessageInfoManager::deserialize(const std::string &data)
+MessagesInfoManager::MessagePair MessagesInfoManager::deserialize(const std::string &data)
 {
     pt::ptree request;
     MessagePair result;
@@ -42,7 +42,7 @@ MessageInfoManager::MessagePair MessageInfoManager::deserialize(const std::strin
 
     return result;
 }
-std::string MessageInfoManager::createResponse(const m2::server::MessageInfoManager::MessagePair &pair,
+std::string MessagesInfoManager::createResponse(const m2::server::MessagesInfoManager::MessagePair &pair,
                                                bool &isDialogExists)
 {
     std::string uuidString = pair.udid; //ВОЗМОЖНО, тут будет base64
@@ -77,6 +77,6 @@ std::string MessageInfoManager::createResponse(const m2::server::MessageInfoMana
 
     return stream.str();
 }
-MessageInfoManager::ResponseMessage::ResponseMessage(const std::string &umid, const std::string &body)
+MessagesInfoManager::ResponseMessage::ResponseMessage(const std::string &umid, const std::string &body)
     : umid(umid), body(body)
 {}

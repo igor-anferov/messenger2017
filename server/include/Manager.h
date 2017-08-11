@@ -26,39 +26,39 @@ namespace server
 {
 
 
-class Manager
-{
-public:
-    struct Error
+    class Manager
     {
-        int code;
-        std::string jsonBody;
+    public:
+        struct Error
+        {
+            int code;
+            std::string jsonBody;
+        };
+        struct StringsPair
+        {
+            std::string serverString;
+            std::string clientString;
+        };
+        enum class response_result {
+            ok,
+            wrong_response,
+        };
+        struct userInfo
+        {
+            boost::uuids::uuid  fingerprint;
+            std::string clientPublicKey;
+            response_result status = response_result::ok;
+        };
+    public:
+        Manager(ManagerController* controller);
+        virtual HttpResponse::Code doAction(const std::string &data, std::string &response) = 0;
+        static const ResponseType m_response_type = ResponseType::INVALID;
+        static std::string createError(const std::string message);
+    protected:
+        ManagerController* controller;
+        Database *db;
     };
-    struct StringsPair
-    {
-        std::string serverString;
-        std::string clientString;
-    };
-    enum class response_result {
-        ok,
-        wrong_response,
-    };
-    struct userInfo
-    {
-        boost::uuids::uuid  fingerprint;
-        std::string clientPublicKey;
-        response_result status = response_result::ok;
-    };
-public:
-    Manager(ManagerController* _controller);
-    virtual HttpResponse::Code doAction(const std::string &data, std::string &response) = 0;
-    static const ResponseType m_response_type = ResponseType::INVALID;
-    static std::string createError(const std::string message);
-protected:
-    Database *db;
-    ManagerController* controller;
 
-};
 
 }
 }

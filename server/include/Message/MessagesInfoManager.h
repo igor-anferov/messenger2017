@@ -6,7 +6,7 @@ namespace m2
 namespace server
 {
 
-class MessageInfoManager: public Manager
+class MessagesInfoManager: public Manager
 {
     struct MessagePair
     {
@@ -19,7 +19,7 @@ class MessageInfoManager: public Manager
         std::string body;
     };
 public:
-    MessageInfoManager(ManagerController *controller);
+    MessagesInfoManager(ManagerController *controller);
 
     virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
 

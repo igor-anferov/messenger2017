@@ -74,11 +74,15 @@ namespace indices {
             }
         }
 
-        void Add       (const _Tp& Uid)
-        { uids.insert(Uid); }
+        void Add       (const _Tp& Uid) {
+            uids.insert(Uid);
+            StoreOnDisk();
+        }
 
-        void Remove    (const _Tp& Uid)
-        { uids.erase (Uid); }
+        void Remove    (const _Tp& Uid) {
+            uids.erase (Uid);
+            StoreOnDisk();
+        }
 
         bool IsContains(const _Tp& Uid) const {
             for (auto& i : uids)
