@@ -5,10 +5,11 @@ namespace m2
 {
 namespace server
 {
+
     class LoginManager: public Manager
     {
     public:
-        LoginManager(Database *database);
+        LoginManager(ManagerController* controller);
         virtual HttpResponse::Code
         doAction(const std::string &data, std::string &response) final;
 
