@@ -43,7 +43,7 @@ namespace server {
         data::UserDialogsPtr
         GetUserDialog(const uuids::uuid& User);
 
-        const uuids::uuid&
+        const uuids::uuid
         StoreMessage(const uuids::uuid& Sender
                    , const uuids::uuid& Addressee
                    , const std::string& Text);

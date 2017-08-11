@@ -51,10 +51,10 @@ std::string MessageManager::createResponse(const MessagePair &pair, bool &isDial
         isDialogExists = false;
         return std::string();
     }
-    const uuids::uuid& messageUuid = db->StoreMessage(controller->getUuid(), dialogUuid, pair.message);
+    const uuids::uuid messageUuid = db->StoreMessage(controller->getUuid(), dialogUuid, pair.message);
     pt::ptree tree;
     std::stringstream stream;
-    tree.put("uuid", messageUuid.str());
+    tree.put("umid", messageUuid.str().c_str());
     boost::property_tree::write_json(stream, tree);
     return stream.str();
 }

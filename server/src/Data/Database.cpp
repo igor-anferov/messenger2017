@@ -96,7 +96,7 @@ data::UserDialogsPtr
 Database::GetUserDialog(const uuids::uuid& User)
 { return Dialogs.Get(User); }
 
-const uuids::uuid&
+const uuids::uuid
 Database::StoreMessage(const uuids::uuid& Sender
                      , const uuids::uuid& Addressee
                      , const std::string& Text

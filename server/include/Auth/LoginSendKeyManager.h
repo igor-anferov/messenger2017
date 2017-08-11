@@ -13,7 +13,7 @@ namespace server
         LoginSendKeyManager(ManagerController* controller);
         virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
     protected:
-        uuids::uuid deserialize(const std::string &data);
+        const uuids::uuid deserialize(const std::string &data);
 
     private:
         std::string createResponse(const uuids::uuid &uuid);

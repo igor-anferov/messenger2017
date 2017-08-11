@@ -15,8 +15,8 @@ using namespace m2::server;
 HttpResponse::Code LoginSendKeyManager::doAction(const std::string &data, std::string &response)
 {
     try {
-        uuids::uuid& uuidKey = controller->getUuid();
-        uuidKey = deserialize(data);
+        //uuids::uuid& uuidKey = controller->getUuid();
+        const uuids::uuid uuidKey = deserialize(data);
         response = createResponse(uuidKey);
         if (!db->IsClienExists(uuidKey)) {
             return HttpResponse::Code::FORBIDEN;
@@ -36,7 +36,7 @@ HttpResponse::Code LoginSendKeyManager::doAction(const std::string &data, std::s
 
     return HttpResponse::Code::OK;
 }
-uuids::uuid LoginSendKeyManager::deserialize(const std::string &data)
+const uuids::uuid LoginSendKeyManager::deserialize(const std::string &data)
 {
     pt::ptree request;
     uuids::uuid uuid;
@@ -73,12 +73,16 @@ std::string LoginSendKeyManager::createResponse(const uuids::uuid &in_uuid)
 
         std::cout << e.what();
     }
-
-    return std::string();
+    pt::ptree tree;
+    std::stringstream stream;
+    tree.put("client_string", base64_encode(client_string.c_str(), client_string.size()));
+    tree.put("server_string", base64_encode(server_string.c_str(), server_string.size()));
+    boost::property_tree::write_json(stream, tree);
+    return  stream.str();
 
 }
 
-LoginSendKeyManager::LoginSendKeyManager(ManagerController* controller)
+LoginSendKeyManager::LoginSendKeyManager(ManagerController *controller)
     : Manager(controller)
 {
 
