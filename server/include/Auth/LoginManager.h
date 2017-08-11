@@ -5,18 +5,18 @@ namespace m2
 {
 namespace server
 {
-class LoginManager: public Manager
-{
-public:
-    LoginManager(Database *database);
-    virtual HttpResponse::Code
-    doAction(const std::string &data, std::string &response) final;
+    class LoginManager: public Manager
+    {
+    public:
+        LoginManager(Database *database);
+        virtual HttpResponse::Code
+        doAction(const std::string &data, std::string &response) final;
 
-private:
-    StringsPair deserialize(const std::string &data);
+    private:
+        StringsPair deserialize(const std::string &data);
 
-    std::string createResponse(const StringsPair &pair, userInfo &result);
-};
+        std::string createResponse(const StringsPair &pair, userInfo &result);
+    };
 }
 }
 

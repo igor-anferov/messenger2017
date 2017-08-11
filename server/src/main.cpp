@@ -6,8 +6,7 @@
 
 #include "Data/Data_Test.h"
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     using namespace m2::server;
     using boost::lexical_cast;
     using boost::bad_lexical_cast;
@@ -17,7 +16,7 @@ int main(int argc, char* argv[])
         try {
             port = lexical_cast<uint16_t>(argv[1]);
         }
-        catch(bad_lexical_cast &) {
+        catch (bad_lexical_cast&) {
             std::cout << "Error port argument! Use default - 8282" << std::endl;
         }
     }
@@ -29,4 +28,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-

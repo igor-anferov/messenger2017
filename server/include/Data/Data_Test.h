@@ -37,18 +37,26 @@ void DataTest()
     std::string Root = "/home/kvilt/CppProjects/messenger2017/server/Test/";
     boost::filesystem::remove_all(Root);
 
+
+    std::string TestStr = "__PUBLIC_KEY";
+
     {   // create Users
         AUsers Users(Root);
         //BOOST_PP_REPEAT(15, USR_CREATE,);
-        Users.CreateUser(1, "__PUBLIC_KEY 1" );
-        Users.CreateUser(2, "__PUBLIC_KEY 2" );
-        Users.CreateUser(3, "__PUBLIC_KEY 3" );
+        Users.CreateUser(1, TestStr );
+        Users.CreateUser(2, TestStr );
+        Users.CreateUser(3, TestStr );
 
         // added 15. Check it
         assert(Users.Size() == 3);
 
         // unknown user
         assert(!Users[156]);
+
+
+        //check key
+        auto User = Users.GetUser(1);
+        assert(TestStr == User.PublicKey());
 
     } BLOCK(1, "first creation");
 
@@ -59,6 +67,9 @@ void DataTest()
         // all, we added, must be here
         for (auto i = 1; i < 4; ++i)
             assert(Users[i]);
+
+        auto User = Users.GetUser(1);
+        assert(TestStr == User.PublicKey());
 
         // must be 15. Check it
         assert(Users.Users().size() == 3);
