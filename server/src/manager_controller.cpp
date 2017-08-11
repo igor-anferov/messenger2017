@@ -3,7 +3,7 @@
 #include "Registration/RegisterSendKeyManager.h"
 #include "Auth/LoginManager.h"
 #include "Auth/LoginSendKeyManager.h"
-#include "Message/MessageManager.h
+#include "Message/MessageManager.h"
 #include "Message/InfoManager.h"
 
 namespace m2
