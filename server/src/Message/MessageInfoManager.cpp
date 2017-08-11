@@ -1,13 +1,15 @@
+#include <server/include/manager_controller.h>
+#include <server/include/Message/MessageInfoManager.h>
 #include <boost/uuid/string_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include "Message/MessageManager.h"
 using namespace m2::server;
-MessageManager::MessageManager(ManagerController *controller)
+
+MessageInfoManager::MessageInfoManager(ManagerController *controller)
     : Manager(controller)
 {
 
 }
-HttpResponse::Code MessageManager::doAction(const std::string &data, std::string &response)
+HttpResponse::Code m2::server::MessageInfoManager::doAction(const std::string &data, std::string &response)
 {
     MessagePair preparedData;
     try {
@@ -21,13 +23,13 @@ HttpResponse::Code MessageManager::doAction(const std::string &data, std::string
 
     bool isDialogExists = true;
     response = createResponse(preparedData, isDialogExists);
-    if(!isDialogExists){
+    if (!isDialogExists) {
         response = createError("Can't find dialog");
         return HttpResponse::Code::FORBIDEN;
     }
     return HttpResponse::Code::OK;
 }
-MessageManager::MessagePair MessageManager::deserialize(const std::string &data)
+MessageInfoManager::MessagePair MessageInfoManager::deserialize(const std::string &data)
 {
     pt::ptree request;
     MessagePair result;
@@ -35,15 +37,15 @@ MessageManager::MessagePair MessageManager::deserialize(const std::string &data)
     std::stringstream stream;
     stream << data;
     boost::property_tree::read_json(stream, request);
-    result.message = request.get<std::string>("msg");
+    result.umid = request.get<std::string>("umid");
     result.udid = request.get<std::string>("udid");
 
     return result;
 }
-std::string MessageManager::createResponse(const MessagePair &pair, bool &isDialogExists)
+std::string MessageInfoManager::createResponse(const m2::server::MessageInfoManager::MessagePair &pair,
+                                               bool &isDialogExists)
 {
     std::string uuidString = pair.udid; //ВОЗМОЖНО, тут будет base64
-    std::cout << uuidString << "__UUID__" << std::endl;
     boost::uuids::uuid temp = boost::uuids::string_generator()(uuidString);
     uuids::uuid dialogUuid = uuids::to_uuid(temp);
     auto dialog = db->GetDialog(controller->getUuid(), dialogUuid);
@@ -51,11 +53,30 @@ std::string MessageManager::createResponse(const MessagePair &pair, bool &isDial
         isDialogExists = false;
         return std::string();
     }
-    const uuids::uuid& messageUuid = db->StoreMessage(controller->getUuid(), dialogUuid, pair.message);
+    std::vector<ResponseMessage> messages;
+
+    std::string umidString = pair.umid; //ВОЗМОЖНО, тут будет base64
+    boost::uuids::uuid temp2 = boost::uuids::string_generator()(uuidString);
+    uuids::uuid dialogUmid = uuids::to_uuid(temp);
+    std::shared_ptr<m2::data::AMessage> message = dialog->Get(++dialogUmid);
     pt::ptree tree;
     std::stringstream stream;
-    tree.put("uuid", messageUuid.str());
+    while (message != nullptr) {
+//        ResponseMessage response;
+//        response.umid = dialogUmid;
+//        response.body = message->Text();
+
+        messages.emplace_back(dialogUmid.str(), message->Text());
+        dialogUmid++;
+        tree.add("messages", message->Text());
+
+        message = dialog->Get(dialogUmid);
+
+    }
     boost::property_tree::write_json(stream, tree);
+
     return stream.str();
 }
-
+MessageInfoManager::ResponseMessage::ResponseMessage(const std::string &umid, const std::string &body)
+    : umid(umid), body(body)
+{}

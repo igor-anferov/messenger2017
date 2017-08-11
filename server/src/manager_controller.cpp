@@ -4,7 +4,7 @@
 #include "Auth/LoginManager.h"
 #include "Auth/LoginSendKeyManager.h"
 #include "Message/MessageManager.h"
-#include "Message/InfoManager.h"
+#include "Message/UserInfoManager.h"
 
 namespace m2
 {
@@ -21,7 +21,7 @@ ManagerController::ManagerController(Database *database, Session *session)
         {"/user/auth/sendUuid", new LoginSendKeyManager(this)},
         {"/user/auth", new LoginManager(this)},
         {"/dialog/send_message", new MessageManager(this)},
-        {"/user/info", new InfoManager(this)},
+        {"/user/info", new UserInfoManager(this)},
     };
 }
 
