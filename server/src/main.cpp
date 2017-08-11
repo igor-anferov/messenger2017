@@ -3,11 +3,18 @@
 
 #include <iostream>
 #include <boost/lexical_cast.hpp>
+#include <signal.h>
 
-#include "Data/Data_Test.h"
+using namespace m2::server;
+
+Server server;
+
+void my_handler (int param)
+{
+    exit(1);
+}
 
 int main(int argc, char* argv[]) {
-    using namespace m2::server;
     using boost::lexical_cast;
     using boost::bad_lexical_cast;
 
@@ -23,7 +30,8 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Connected to port = " << port << std::endl;
 
-    Server server;
+    signal (SIGINT, my_handler);
+
     server.start(port);
 
     return 0;

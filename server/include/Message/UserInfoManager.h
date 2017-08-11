@@ -5,10 +5,10 @@ namespace m2
 {
 namespace server
 {
-class InfoManager: public Manager
+class UserInfoManager: public Manager
 {
 public:
-    InfoManager(ManagerController* controller);
+    UserInfoManager(ManagerController* controller);
     virtual HttpResponse::Code doAction(const std::string &data, std::string &response) final;
 
 private:

@@ -46,8 +46,8 @@ std::string MessageManager::createResponse(const MessagePair &pair, bool &isDial
     std::cout << uuidString << "__UUID__" << std::endl;
     boost::uuids::uuid temp = boost::uuids::string_generator()(uuidString);
     uuids::uuid dialogUuid = uuids::to_uuid(temp);
-    auto isUserExists = db->GetDialog(controller->getUuid(), dialogUuid);
-    if (isUserExists == nullptr) {
+    auto dialog = db->GetDialog(controller->getUuid(), dialogUuid);
+    if (dialog == nullptr) {
         isDialogExists = false;
         return std::string();
     }

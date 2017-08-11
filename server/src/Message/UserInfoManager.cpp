@@ -1,4 +1,4 @@
-#include "Message/InfoManager.h"
+#include "Message/UserInfoManager.h"
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/string_generator.hpp>
@@ -6,7 +6,7 @@
 
 using namespace m2::server;
 
-HttpResponse::Code InfoManager::doAction(const std::string &data, std::string &response)
+HttpResponse::Code UserInfoManager::doAction(const std::string &data, std::string &response)
 {
     std::string preparedData;
     try {
@@ -23,7 +23,7 @@ HttpResponse::Code InfoManager::doAction(const std::string &data, std::string &r
     return HttpResponse::Code::OK;
 }
 
-std::string InfoManager::deserialize(const std::string &data)
+std::string UserInfoManager::deserialize(const std::string &data)
 {
     std::string uuid;
     pt::ptree request;
@@ -36,7 +36,7 @@ std::string InfoManager::deserialize(const std::string &data)
     return uuid;
 }
 
-std::string InfoManager::createResponse(const std::string &uuid)
+std::string UserInfoManager::createResponse(const std::string &uuid)
 {
 
     boost::uuids::uuid temp = boost::uuids::string_generator()(uuid);
@@ -52,7 +52,7 @@ std::string InfoManager::createResponse(const std::string &uuid)
     return stream.str();
 }
 
-InfoManager::InfoManager(ManagerController* controller)
+UserInfoManager::UserInfoManager(ManagerController* controller)
     : Manager(controller)
 {
 
