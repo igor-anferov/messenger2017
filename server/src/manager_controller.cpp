@@ -3,7 +3,7 @@
 #include "Registration/RegisterSendKeyManager.h"
 #include "Auth/LoginManager.h"
 #include "Auth/LoginSendKeyManager.h"
-#include "Message/GetInfoManager.h"
+#include "Message/InfoManager.h"
 
 namespace m2 {
 namespace server {
@@ -18,7 +18,7 @@ namespace server {
             {"/user/register", new RegisterManager(this)},
             {"/user/auth/sendUuid", new LoginSendKeyManager(this)},
             {"/user/auth", new LoginManager(this)},
-            {"/user/info", new GetInfoManager(this)},
+            {"/user/info", new InfoManager(this)},
         };
     }
 
