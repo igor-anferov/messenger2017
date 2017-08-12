@@ -20,7 +20,7 @@ protected:
     std::string deserialize(const std::string &data);
 
 private:
-    std::string createResponse(const std::string &publicKey);
+    std::string createResponse(const std::string &publicKey, bool &error);
 
 };
 }

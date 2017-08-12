@@ -26,13 +26,18 @@ std::string RegisterSendKeyManager::deserialize(const std::string &data)
 HttpResponse::Code RegisterSendKeyManager::doAction(const std::string &data, std::string &response)
 {
     std::string publicKey;
+    bool error = false;
     try {
         publicKey = deserialize(data);
-        response = createResponse(publicKey);
+        response = createResponse(publicKey, error);
     }
     catch (const pt::ptree_error &e) {
         std::cout << e.what() << std::endl;
         response = createError("Unknown algorithm");
+        return HttpResponse::Code::FORBIDEN;
+    }
+    if (error){
+        response = createError("Wrong keys");
         return HttpResponse::Code::FORBIDEN;
     }
 
@@ -40,7 +45,7 @@ HttpResponse::Code RegisterSendKeyManager::doAction(const std::string &data, std
 }
 
 
-std::string RegisterSendKeyManager::createResponse(const std::string &publicKey)
+std::string RegisterSendKeyManager::createResponse(const std::string &publicKey, bool &error)
 {
     boost::uuids::uuid uuid = boost::uuids::random_generator()();
     std::string stringForCrypt = boost::uuids::to_string(uuid);
@@ -58,8 +63,10 @@ std::string RegisterSendKeyManager::createResponse(const std::string &publicKey)
 
     }
     catch (const m2::crypto::common::CryptoError &e) {
-
+        error = true;
         std::cout << e.what();
+
+        return std::string();
     }
 
 
