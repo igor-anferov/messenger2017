@@ -65,8 +65,8 @@ std::string RegisterSendKeyManager::createResponse(const std::string &publicKey)
 
     pt::ptree tree;
     std::stringstream stream;
-    tree.put("client_string", base64_encode(client_string.c_str(), client_string.size()));
-    tree.put("server_string", base64_encode(server_string.c_str(), server_string.size()));
+    tree.put("client_string", base64::base64_encode(client_string));
+    tree.put("server_string", base64::base64_encode(server_string));
     boost::property_tree::write_json(stream, tree);
 
     return stream.str();
