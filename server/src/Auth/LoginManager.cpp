@@ -80,7 +80,7 @@ std::string LoginManager::createResponse(const StringsPair &pair, userInfo &resu
         result.status = response_result::ok;
         pt::ptree tree;
         std::stringstream stream;
-        tree.put("reason", base64::base64_encode("hello", 5));
+        tree.put("reason", base64::base64_encode("hello"));
         boost::property_tree::write_json(stream, tree);
         //return std::string();
         return stream.str();
