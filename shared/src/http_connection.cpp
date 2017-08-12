@@ -1,5 +1,5 @@
 #include <cassert>
-
+#include <cstring>
 #include "../include/http_client.h"
 
 #include "../include/http_connection.h"

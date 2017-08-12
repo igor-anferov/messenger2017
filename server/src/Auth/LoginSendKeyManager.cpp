@@ -59,6 +59,7 @@ std::string LoginSendKeyManager::createResponse(const uuids::uuid &in_uuid)
     std::string server_string;
     std::string client_string;
     std::string publicKey = db->getUserPublicKey(in_uuid);
+    std::cout<<"__LOGIN Has come__"<<in_uuid.str()<<std::endl;
     auto privateKey = db->getPrivateServerKey();
     try {
         //криптор публик кея

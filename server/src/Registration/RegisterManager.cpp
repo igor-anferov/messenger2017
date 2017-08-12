@@ -41,6 +41,7 @@ HttpResponse::Code RegisterManager::doAction (const std::string &data, std::stri
     }
   //  auto generator =  boost::uuids::string_generator()(info.fingerprint);
     db->CreateUser (uuids::to_uuid(info.fingerprint), info.clientPublicKey);
+    std::cout<<"__USER REGISTRATED__"<<uuids::to_uuid(info.fingerprint).str()<<std::endl;
 
     return HttpResponse::Code::OK;
 }
