@@ -57,8 +57,8 @@ std::string MessagesInfoManager::createResponse(const m2::server::MessagesInfoMa
 
     std::string umidString = pair.umid; //ВОЗМОЖНО, тут будет base64
     boost::uuids::uuid temp2 = boost::uuids::string_generator()(uuidString);
-    uuids::uuid dialogUmid = uuids::to_uuid(temp);
-    std::shared_ptr<m2::data::AMessage> message = dialog->Get(dialogUmid);
+    uuids::uuid dialogUmid = uuids::to_uuid(temp2);
+    std::shared_ptr<m2::data::AMessage> message = dialog->Get(++dialogUmid);
     pt::ptree tree;
     std::stringstream stream;
     while (message != nullptr) {
