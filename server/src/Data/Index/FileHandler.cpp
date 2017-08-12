@@ -81,8 +81,11 @@ AFileHandler::read_from_disk(const std::string& FileName)
     auto ptr = std::make_shared<LFile>();
     LFile& file(*ptr);
     file.first = FileName;
+    std::string line;
+    while (std::getline(in, line)){
+        file.second+=line+"\n";
+    }
 
-    in >> file.second;
 
     return ptr;
 }
